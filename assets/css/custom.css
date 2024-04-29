@@ -1,0 +1,169 @@
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    font-family: "Arial Black";
+}
+
+.btns {
+    text-align: right;
+    width: 100vw;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.all-wrapper {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b2e13;
+    background-image: url("/assets/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card.tt {
+    background-color: rgba(132, 195, 190, 0.9);
+    width: 90vw;
+    margin: 80px auto auto;
+    height: 33vw;
+    border-radius: 15px;
+    border: 4px solid black;
+    padding: 30px;
+}
+
+.point-row {
+    display: flex
+}
+
+h1.settings {
+    background-color: darkgreen;
+    color: white;
+    padding: 15px;
+}
+
+.card-header {
+    text-align: center;
+    font-size: 60px;
+}
+
+.board {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-around;
+}
+
+#divider {
+    font-size: 200px;
+}
+
+#divider.blue {
+    color: darkblue;
+}
+
+.card.tt .name {
+    font-size: calc(50px + (24 - 18) * (100vw - 50px) / (800 - 400));
+    margin-bottom: -40px;
+    position: relative;
+}
+
+.player {
+    position: relative;
+}
+
+.card.tt .icon {
+    display: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: -159px;
+    width: 134px;
+    height: 100px;
+    top: 10px;
+}
+
+.card.tt .active .icon,
+.card.tt .winning .icon {
+    display: inline-block !important;
+}
+
+.card.tt .active .icon {
+    background-image: url("/assets/images/bat.svg");
+}
+
+.card.tt .winning .icon {
+    background-image: url("/assets/images/crown.svg");
+}
+
+#mode {
+    margin-left: 15px;
+}
+
+.points {
+    font-size: 200px;
+}
+
+input.points {
+    width: 73%;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    .card.tt {
+        height: 80vh;
+    }
+
+    .card-header {
+        font-size: 24px;
+    }
+
+    .card.tt .name {
+        font-size: calc(24px + (24 - 18) * (100vw - 50px) / (800 - 400));
+        margin-bottom: -40px;
+    }
+
+    .points {
+        font-size: 100px;
+    }
+
+    div#divider {
+        width: 71vw;
+        height: 10px;
+        background-color: black;
+        content: "";
+        font-size: 0;
+        margin: 20px 0;
+    }
+
+    div#divider.blue {
+        background-color: blue;
+    }
+
+    .board {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    input {
+        font-size: 30px !important;
+    }
+
+    button.addPoint {
+        padding: 15px;
+        font-size: 90px;
+    }
+
+    button.decPoint {
+        padding: 15px;
+        font-size: 90px;
+    }
+
+    body {
+        display: grid;
+    }
+}

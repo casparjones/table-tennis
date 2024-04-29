@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+    <div class="all-wrapper">
+    <!-- Cash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/8.1.1/cash.min.js"></script>
+    <!-- socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js" integrity="sha512-9mpsATI0KClwt+xVZfbcf2lJ8IFBAwsubJ6mI3rtULwyM3fBmQFzj0It4tGqxLOGQwGfJdk/G+fANnxfq9/cew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="/assets/css/custom.css" rel="stylesheet">
+
+    <script src="/assets/js/vendor/NoSleep.js"></script>
+
+    <div class="btns" style="text-align: right">
+        <div style="display: inline-flex; color: white">
+            <div>Game-Mode: </div>
+            <div id="mode">21</div>
+        </div>
+        <button class="btn btn-primary" id="toggle">fullscreen off</button>
+    </div>
+
+    <div class="card tt">
+        <div class="card-header">
+            {{ .title }}
+        </div>
+        <div class="card-body">
+            <div class="board">
+                <div id="player1" class="player">
+                    <div class="name">Player 1</div>
+                    <div class="icon"></div>
+                    <div class="points">0</div>
+                </div>
+                <div id="divider">:</div>
+                <div id="player2" class="player">
+                    <div class="name">Player 2</div>
+                    <div class="icon"></div>
+                    <div class="points">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let noSleep = new NoSleep();
+
+        function openFullscreen(elem) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function exitFullscreen(elem) {
+            if (elem.exitFullscreen) {
+                elem.exitFullscreen();
+            }
+        }
+
+        let wakeLockEnabled = false;
+        let toggleEl = document.querySelector("#toggle");
+        let fullscreenOn = function() {
+            noSleep.enable(); // keep the screen on!
+            wakeLockEnabled = true;
+            toggleEl.textContent = "fullscreen off";
+            document.body.style.backgroundColor = "";
+        }
+
+        let fullscreenOff = function() {
+            noSleep.disable(); // let the screen turn off.
+            wakeLockEnabled = false;
+            toggleEl.textContent = "fullscreen on";
+            document.body.style.backgroundColor = "";
+        }
+
+        toggleEl.addEventListener('click', () => {
+            if (!wakeLockEnabled) {
+                openFullscreen($('.all-wrapper')[0]);
+            } else {
+                exitFullscreen(document);
+            }
+        }, false);
+
+        addEventListener('fullscreenchange', event => {
+            if (document.fullscreenElement) {
+                fullscreenOn();
+            } else {
+                fullscreenOff();
+            }
+
+        });
+
+        window.socket_host = {{ .socket_host }}
+    </script>
+
+    <script type="module" src="/assets/js/tt-main.mjs" ></script>
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"  integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>
